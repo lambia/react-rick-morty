@@ -1,0 +1,39 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: sans-serif;
+  padding: 1rem;
+  background: #222;
+  color: white;
+}
+
+.link {
+  color: cyan;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: violet;
+}
+
+.btn {
+  border: solid 1px cyan;
+  text-decoration: none;
+  color: cyan;
+  background-color: #222;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+}
+
+.btn:hover {
+  border: solid 1px cyan;
+  color: #222;
+  background-color: cyan;
+}
