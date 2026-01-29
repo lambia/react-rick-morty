@@ -1,35 +1,74 @@
 import { useEffect, useState } from 'react'
-// const axios = require('axios'); //CommonJS (CJS)
-import axios from "axios"; //MJS
+// const axios = require('axios'); //CommonJS (CJS) -> NON usare
+import axios from "axios"; //ES Modules (MJS)
 
 function App() {
-
-	const [todos, setTodos] = useState([]);
+	const [characters, setCharacters] = useState([]);
+	const [currentPage, setCurrentPage] = useState(1);
 
 	function getData() {
-		const apiUrl = "https://jsonplaceholder.typicode.com/todos";
-		axios.get(apiUrl).then((res) => {
-			console.log("Dati ricevuti da API", res.data);
-			setTodos(res.data)
+
+		let url = "https://rickandmortyapi.com/api/character";
+
+		if (currentPage > 1) {
+			url = `${url}?page=${currentPage}`;
+		}
+
+		axios.get(url).then((res) => {
+			const risultati = res.data;
+			const personaggi = risultati.results;
+			console.log("Dati ricevuti da API", personaggi);
+			setCurrentPage(currentPage + 1);
+
+			setCharacters(res.data.results);
+		}).catch(error => {
+			console.error("Ops... Qualcosa è andato storto:", error.message);
 		})
 	}
 
 	function clearData() {
-		setTodos([]);
+		setCharacters([]);
 	}
 
-	useEffect(getData, [])
+	// function getStatus(status) {
+
+	// 	if (status.toLowerCase() == "dead") {
+	// 		return <div className="pallino dead"></div>
+
+	// 	} else if (status.toLowerCase() == "alive") {
+	// 		return <div className="pallino alive"></div>
+
+	// 	} else {
+	// 		return <div className="pallino"></div>
+
+	// 	}
+	// }
+
+	useEffect(getData, []) //<-- al caricamento della pagina
 
 	return (
 		<div>
 			<h1>Hello React World</h1>
-			<button onClick={getData}>Recupera dati</button>
-			<button onClick={clearData}>Azzera dati</button>
-			<ul>
-				{todos.map((todo) => (
-					<li key={todo.id}>{todo.title}</li>
+			{/* <button className="btn" onClick={getData}>Recupera dati</button> */}
+			<button className="btn" onClick={clearData}>Azzera dati</button>
+
+			<button className="btn" onClick={getData}>Carica pagina successiva</button>
+
+			<div className='flex-container flex-wrap gap-1'>
+				{characters.map((personaggio) => (
+					<div className='character-card' key={personaggio.id}>
+						<img className="character-image" src={personaggio.image} />
+						<p className="character-title">
+							<span className={`pallino ${personaggio.status.toLowerCase()}`}></span>
+							{personaggio.name} - {personaggio.species}
+						</p>
+						<p className="character-status">
+							{/* {getStatus(personaggio.status)} */}
+						</p>
+						<p className="character-origin">{personaggio.origin.name}</p>
+					</div>
 				))}
-			</ul>
+			</div>
 		</div>
 	)
 }
