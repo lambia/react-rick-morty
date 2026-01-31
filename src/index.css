@@ -27,6 +27,10 @@ body {
   margin: 0 0.5rem;
 }
 
+#navbar .link.active {
+  text-decoration: underline;
+}
+
 .link {
   color: cyan;
   text-decoration: none;
