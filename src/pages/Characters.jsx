@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import axios from "axios";
-import Navbar from "../components/Navbar";
 
 function Characters() {
 	const [characters, setCharacters] = useState([]);
@@ -48,7 +47,6 @@ function Characters() {
 
 	return (
 		<div id="page-characters">
-			<Navbar />
 			<h1>Characters</h1>
 			{/* <button className="btn" onClick={getData}>Recupera dati</button> */}
 			<button className="btn" onClick={clearData}>Azzera dati</button>
