@@ -18,17 +18,20 @@ function CharactersListPage() {
 			const risultati = res.data;
 			const personaggi = risultati.results;
 			console.log("Dati ricevuti da API", personaggi);
-			setCurrentPage(currentPage + 1);
 
-			res.data.results[0].id = 123123123;
+			//res.data.results[0].id = 123123123; //per testare il navigate su id non validi
 			setCharacters(res.data.results);
+
+			setCurrentPage(currentPage + 1);
 		}).catch(error => {
 			console.error("Ops... Qualcosa è andato storto:", error.message);
 		})
 	}
 
 	function clearData() {
+		//Reimposto l'array vuoto e la pagina a 1
 		setCharacters([]);
+		setCurrentPage(1);
 	}
 
 	// function getStatus(status) {
