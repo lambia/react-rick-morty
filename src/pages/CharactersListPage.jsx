@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-function Characters() {
+function CharactersListPage() {
 	const [characters, setCharacters] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
 
@@ -19,6 +20,7 @@ function Characters() {
 			console.log("Dati ricevuti da API", personaggi);
 			setCurrentPage(currentPage + 1);
 
+			res.data.results[0].id = 123123123;
 			setCharacters(res.data.results);
 		}).catch(error => {
 			console.error("Ops... Qualcosa è andato storto:", error.message);
@@ -65,12 +67,13 @@ function Characters() {
 							{/* {getStatus(personaggio.status)} */}
 						</p>
 						<p className="character-origin">{personaggio.origin.name}</p>
+						<Link to={`/characters/${personaggio.id}`} className="link">Vai ai dettagli</Link>
 					</div>
 				))}
 			</div>
-		</div>
+		</div >
 	)
 }
 
 
-export default Characters
+export default CharactersListPage
