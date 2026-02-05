@@ -18,6 +18,7 @@ function PreferencesProvider({ children }) {
 
 }
 
+//Custom Hook
 function usePreferences() {
 	const context = useContext(PreferencesContext);
 	return context;
