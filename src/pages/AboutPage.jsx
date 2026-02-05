@@ -1,8 +1,7 @@
-import { useContext } from "react";
-import CountContext from "../contexts/CountContext";
+import { usePreferences } from "../contexts/PreferencesContext";
 
 function About() {
-	const { lang, numero } = useContext(CountContext);
+	const { lang, numero } = usePreferences();
 
 	return <div id="page-about">
 		<h1>About</h1>

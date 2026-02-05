@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import CountContext from "../contexts/CountContext";
+import { usePreferences } from "../contexts/PreferencesContext";
 
 function HomePage() {
 
-	const { lang } = useContext(CountContext);
+	const { lang } = usePreferences();
 
 	return <div id="page-home">
 		<h1>Rick & Morty API</h1>

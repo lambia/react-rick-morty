@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import CountContext from "./contexts/CountContext";
+import { PreferencesProvider } from "./contexts/PreferencesContext";
 
 import HomePage from "./pages/HomePage"
 import AboutPage from "./pages/AboutPage"
@@ -10,13 +10,7 @@ import ErrorPage from "./pages/ErrorPage";
 
 function App() {
 
-	const preferences = {
-		darkMode: false,
-		lang: "it-IT",
-		numero: 42
-	};
-
-	return <CountContext.Provider value={preferences}>
+	return <PreferencesProvider>
 		<BrowserRouter>
 			<Routes>
 				<Route Component={DefaultLayout}>
@@ -28,7 +22,7 @@ function App() {
 				</Route>
 			</Routes>
 		</BrowserRouter>
-	</CountContext.Provider>;
+	</PreferencesProvider>;
 }
 
 export default App
