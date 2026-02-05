@@ -5,6 +5,7 @@ import AboutPage from "./pages/AboutPage"
 import CharactersListPage from "./pages/CharactersListPage"
 import DefaultLayout from "./layouts/DefaultLayout";
 import CharacterDetailPage from "./pages/CharacterDetailPage";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
 	return <BrowserRouter>
@@ -14,6 +15,7 @@ function App() {
 				<Route path="/about" Component={AboutPage} />
 				<Route path="/characters" Component={CharactersListPage} />
 				<Route path="/characters/:id" Component={CharacterDetailPage} />
+				<Route path="*" Component={ErrorPage} />
 			</Route>
 		</Routes>
 	</BrowserRouter>;
