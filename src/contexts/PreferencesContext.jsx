@@ -10,9 +10,11 @@ function PreferencesProvider({ children }) {
 		numero: 42
 	};
 
+	//In questo caso passo [getter, setter] che verrà richiamato dai componenti con:
+	// ===> const [preferences, setPreferences] = usePreferences();
 	const [preferences, setPreferences] = useState(defaultPreferences);
 
-	return <PreferencesContext.Provider value={preferences}>
+	return <PreferencesContext.Provider value={[preferences, setPreferences]}>
 		{children}
 	</PreferencesContext.Provider>
 
