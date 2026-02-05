@@ -10,11 +10,27 @@ function PreferencesProvider({ children }) {
 		numero: 42
 	};
 
+	function toggleDarkMode() {
+
+		const nuovePreferenze = {
+			...preferences,
+			darkMode: !preferences.darkMode
+		};
+
+		setPreferences(nuovePreferenze);
+	}
+
+	function displayDarkMode() {
+		return preferences.darkMode ? "Dark mode attualmente attivo" : "Dark mode attualmente disattivo";
+	}
+
 	//In questo caso passo [getter, setter] che verrà richiamato dai componenti con:
 	// ===> const [preferences, setPreferences] = usePreferences();
 	const [preferences, setPreferences] = useState(defaultPreferences);
 
-	return <PreferencesContext.Provider value={[preferences, setPreferences]}>
+	const value = { preferences, toggleDarkMode, displayDarkMode };
+
+	return <PreferencesContext.Provider value={value}>
 		{children}
 	</PreferencesContext.Provider>
 
