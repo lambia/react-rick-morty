@@ -26,3 +26,25 @@ function useContesto() {
 }
 
 export { ContestoProvider, useContesto };
+
+/*************************************************/
+/**************** ESEMPI DI UTILIZZO *************/
+/*************************************************/
+
+//Providing in App:
+/*
+import { ContestoProvider } from "./contexts/ContestoContext";
+function App() {
+	return <ContestoProvider>
+		...componenti/rotte...
+	</ContestoProvider>
+*/
+
+// Utilizzo da componente:
+/*
+import { useContesto } from "../contexts/ContestoContext";
+function Componente() {
+	const { dato, setDato } = useContesto();
+	return <div>Dati ottenuti: {dato.key}</div>
+}
+*/
