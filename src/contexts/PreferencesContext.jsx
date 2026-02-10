@@ -24,8 +24,6 @@ function PreferencesProvider({ children }) {
 		return preferences.darkMode ? "Dark mode attualmente attivo" : "Dark mode attualmente disattivo";
 	}
 
-	//In questo caso passo [getter, setter] che verrà richiamato dai componenti con:
-	// ===> const [preferences, setPreferences] = usePreferences();
 	const [preferences, setPreferences] = useState(defaultPreferences);
 
 	const value = { preferences, toggleDarkMode, displayDarkMode };
