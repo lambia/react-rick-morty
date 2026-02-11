@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useFavourites } from "../contexts/FavouritesContext";
 
 function CharactersListPage() {
 	const [characters, setCharacters] = useState([]);
 	const [currentPage, setCurrentPage] = useState(1);
+	const { favourites, setFavourites } = useFavourites();
 
 	function getData() {
 
@@ -48,11 +50,60 @@ function CharactersListPage() {
 	// 	}
 	// }
 
+	function getFavouriteBadge(id) {
+		if (favourites.includes(id)) {
+			return <span>❤️</span>;
+		}
+
+		return;
+
+		// return favourites.includes(id) ? <span>❤️</span> : "";
+	}
+
+	function getFavouriteButton(id) {
+		console.log("Bottoni per: ", id);
+		if (favourites.includes(id)) {
+			return <button className="btn" onClick={e => remFavourite(id)}>Rimuovi dai preferiti</button>;
+		}
+
+		return <button className="btn" onClick={e => addFavourite(id)}>Aggiungi ai preferiti</button>;
+	}
+
+	function isFavourite(id) {
+		return favourites.includes(id) ? true : false;
+	}
+
+	function addFavourite(id) {
+		console.log("Aggiungo ai preferiti", id);
+		const nuovoArray = [
+			...favourites,
+			id
+		];
+		setFavourites(nuovoArray);
+	}
+
+	function remFavourite(id) {
+		console.log("Rimuovo dai preferiti", id);
+		const nuovoArray = favourites.filter(preferitoID => preferitoID != id);
+		setFavourites(nuovoArray);
+	}
+
+	function toggleFavourite(id) {
+		const preferito = isFavourite(id);
+
+		if (preferito) {
+			remFavourite(id);
+		} else {
+			addFavourite(id);
+		}
+	}
+
 	useEffect(getData, []) //<-- al caricamento della pagina
 
 	return (
 		<div id="page-characters">
 			<h1>Characters</h1>
+			{/* <h2>Debug: {favourites}</h2> */}
 			{/* <button className="btn" onClick={getData}>Recupera dati</button> */}
 			<button className="btn" onClick={clearData}>Azzera dati</button>
 
@@ -65,12 +116,27 @@ function CharactersListPage() {
 						<p className="character-title">
 							<span className={`pallino ${personaggio.status.toLowerCase()}`}></span>
 							{personaggio.name} - {personaggio.species}
+							{getFavouriteBadge(personaggio.id)}
 						</p>
 						<p className="character-status">
 							{/* {getStatus(personaggio.status)} */}
 						</p>
 						<p className="character-origin">{personaggio.origin.name}</p>
 						<Link to={`/characters/${personaggio.id}`} className="link">Vai ai dettagli</Link>
+						<br />
+
+						{/* {getFavouriteButton(personaggio.id)}
+
+						{isFavourite(personaggio.id) && <button className="btn" onClick={e => remFavourite(personaggio.id)}>Rimuovi dai preferiti</button>}
+						{isFavourite(personaggio.id) == false && <button className="btn" onClick={e => addFavourite(personaggio.id)}>Aggiungi ai preferiti</button>}
+
+						{isFavourite(personaggio.id)
+							? <button className="btn" onClick={e => remFavourite(personaggio.id)}>Rimuovi dai preferiti</button>
+							: <button className="btn" onClick={e => addFavourite(personaggio.id)}>Aggiungi ai preferiti</button>
+						} */}
+
+						<button className="btn" onClick={e => toggleFavourite(personaggio.id)}>{isFavourite(personaggio.id) ? "Rimuovi" : "Aggiungi"}</button>
+
 					</div>
 				))}
 			</div>

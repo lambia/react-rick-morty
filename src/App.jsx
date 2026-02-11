@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { PreferencesProvider } from "./contexts/PreferencesContext";
+import { FavouritesProvider } from "./contexts/FavouritesContext";
 // import { ContestoProvider } from "./contexts/ContestoContext";
 
 import HomePage from "./pages/HomePage"
@@ -13,19 +14,21 @@ function App() {
 
 	return <>
 		{/* <ContestoProvider> */}
-		<PreferencesProvider>
-			<BrowserRouter>
-				<Routes>
-					<Route Component={DefaultLayout}>
-						<Route path="/" Component={HomePage} />
-						<Route path="/about" Component={AboutPage} />
-						<Route path="/characters" Component={CharactersListPage} />
-						<Route path="/characters/:id" Component={CharacterDetailPage} />
-						<Route path="*" Component={ErrorPage} />
-					</Route>
-				</Routes>
-			</BrowserRouter>
-		</PreferencesProvider>
+		<FavouritesProvider>
+			<PreferencesProvider>
+				<BrowserRouter>
+					<Routes>
+						<Route Component={DefaultLayout}>
+							<Route path="/" Component={HomePage} />
+							<Route path="/about" Component={AboutPage} />
+							<Route path="/characters" Component={CharactersListPage} />
+							<Route path="/characters/:id" Component={CharacterDetailPage} />
+							<Route path="*" Component={ErrorPage} />
+						</Route>
+					</Routes>
+				</BrowserRouter>
+			</PreferencesProvider>
+		</FavouritesProvider>
 		{/* </ContestoProvider> */}
 	</>;
 }
